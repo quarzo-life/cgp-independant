@@ -1,17 +1,60 @@
 ---
 import Layout from '../../components/Layout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import EmptyState from '../../components/EmptyState.astro';
+import CgpMap from '../../components/CgpMap.astro';
+import { getPublishedCgps, type Cgp } from '../../lib/cgp';
+import type { MapCgp } from '../../scripts/cgp-map';
+
+function hasCoordinates(cgp: Cgp): cgp is Cgp & { latitude: number; longitude: number } {
+  return cgp.latitude !== null && cgp.longitude !== null;
+}
+
+const cgpsWithCoordinates = getPublishedCgps().filter(hasCoordinates);
+
+const mapCgps: MapCgp[] = cgpsWithCoordinates.map((cgp) => ({
+  displayName: cgp.displayName,
+  firmName: cgp.firmName,
+  city: cgp.city,
+  postalCode: cgp.postalCode,
+  departmentCode: cgp.departmentCode,
+  departmentName: cgp.departmentName,
+  oriasNumber: cgp.oriasNumber,
+  slug: cgp.slug,
+  latitude: cgp.latitude,
+  longitude: cgp.longitude,
+}));
 ---
 
 <Layout
-  title="Carte des CGP indépendants — CGP Indépendant"
-  description="Carte interactive des conseillers en gestion de patrimoine indépendants (bientôt disponible)."
+  title="Carte des CGP indépendants en France"
+  description="Visualisez les CGP indépendants référencés sur une carte interactive et trouvez un conseiller près de chez vous."
 >
   <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Carte' }]} />
 
-  <h1 class="text-3xl font-bold mb-6">Carte des CGP indépendants</h1>
+  <h1 class="text-3xl font-bold mb-4">Carte des CGP indépendants</h1>
 
-  <div class="alert alert-info">
-    <span>La carte interactive sera ajoutée prochainement. En attendant, consultez l'<a href="/cgp/" class="link">annuaire complet</a>.</span>
-  </div>
+  <p class="text-base-content/70 mb-2">
+    Repérez en un coup d'œil les conseillers en gestion de patrimoine indépendants référencés
+    dans l'annuaire et localisés en France.
+  </p>
+
+  <p class="text-base-content/70 mb-6">
+    {mapCgps.length} CGP {mapCgps.length === 1 ? 'est affiché' : 'sont affichés'} sur la carte.
+  </p>
+
+  {mapCgps.length === 0 ? (
+    <EmptyState message="Aucun CGP ne dispose de coordonnées valides pour le moment." />
+  ) : (
+    <>
+      <div class="card bg-base-100 border border-base-200 shadow-sm">
+        <div class="card-body p-2 md:p-4">
+          <CgpMap cgps={mapCgps} />
+        </div>
+      </div>
+      <p class="text-xs text-base-content/60 mt-2">
+        Les positions sont indicatives et dépendent des informations publiques disponibles.
+      </p>
+    </>
+  )}
 </Layout>

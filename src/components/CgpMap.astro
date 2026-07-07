@@ -1,0 +1,19 @@
+---
+import 'leaflet/dist/leaflet.css';
+import type { MapCgp } from '../scripts/cgp-map';
+
+interface Props {
+  cgps: MapCgp[];
+}
+
+const { cgps } = Astro.props;
+---
+
+<div id="cgp-map" class="w-full h-[70vh] min-h-[420px] rounded-box overflow-hidden"></div>
+<script type="application/json" id="cgp-map-data" set:html={JSON.stringify(cgps)} is:inline />
+
+<script>
+  import { initCgpMap } from '../scripts/cgp-map';
+
+  initCgpMap();
+</script>
