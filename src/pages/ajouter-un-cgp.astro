@@ -1,0 +1,34 @@
+---
+import Layout from '../components/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<Layout
+  title="Ajouter un CGP — CGP Indépendant"
+  description="Comment demander l'ajout ou la modification d'une fiche de conseiller en gestion de patrimoine indépendant."
+>
+  <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Ajouter un CGP' }]} />
+
+  <div class="max-w-2xl">
+    <h1 class="text-3xl font-bold mb-6">Ajouter ou modifier une fiche CGP</h1>
+
+    <p class="mb-4">
+      Cet annuaire est en cours de constitution. Si vous êtes un conseiller en gestion de
+      patrimoine indépendant et que vous souhaitez apparaître dans l'annuaire, ou si vous
+      constatez une erreur sur une fiche existante, vous pouvez nous contacter.
+    </p>
+
+    <p class="mb-4">
+      Merci de nous indiquer dans votre message :
+    </p>
+
+    <ul class="list-disc list-inside mb-6 space-y-1">
+      <li>votre nom et le nom de votre cabinet</li>
+      <li>votre ville et votre département d'exercice</li>
+      <li>votre numéro ORIAS si vous en possédez un</li>
+      <li>vos coordonnées de contact (site web, email, téléphone)</li>
+    </ul>
+
+    <a href="/contact/" class="btn btn-primary">Nous contacter</a>
+  </div>
+</Layout>

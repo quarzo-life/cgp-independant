@@ -1,0 +1,30 @@
+---
+import Layout from '../../../components/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import EmptyState from '../../../components/EmptyState.astro';
+import { getCities } from '../../../lib/cgp';
+import { slugify } from '../../../lib/slugify';
+
+const cities = getCities();
+---
+
+<Layout
+  title="CGP indépendants par ville — CGP Indépendant"
+  description="Retrouvez la liste des villes référencées dans l'annuaire des CGP indépendants."
+>
+  <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Par ville' }]} />
+
+  <h1 class="text-3xl font-bold mb-6">CGP indépendants par ville</h1>
+
+  {cities.length === 0 ? (
+    <EmptyState message="Aucune ville n'est référencée pour le moment." />
+  ) : (
+    <ul class="grid grid-cols-1 md:grid-cols-3 gap-2">
+      {cities.map((city) => (
+        <li>
+          <a href={`/cgp/par-ville/${slugify(city)}/`} class="link link-primary">{city}</a>
+        </li>
+      ))}
+    </ul>
+  )}
+</Layout>

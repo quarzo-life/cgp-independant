@@ -1,0 +1,17 @@
+---
+import Layout from '../../components/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+---
+
+<Layout
+  title="Carte des CGP indépendants — CGP Indépendant"
+  description="Carte interactive des conseillers en gestion de patrimoine indépendants (bientôt disponible)."
+>
+  <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Carte' }]} />
+
+  <h1 class="text-3xl font-bold mb-6">Carte des CGP indépendants</h1>
+
+  <div class="alert alert-info">
+    <span>La carte interactive sera ajoutée prochainement. En attendant, consultez l'<a href="/cgp/" class="link">annuaire complet</a>.</span>
+  </div>
+</Layout>

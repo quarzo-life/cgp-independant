@@ -1,0 +1,46 @@
+---
+import Layout from '../../../components/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import CgpCard from '../../../components/CgpCard.astro';
+import EmptyState from '../../../components/EmptyState.astro';
+import { getDepartments, getCgpsByDepartment, type Cgp } from '../../../lib/cgp';
+
+export async function getStaticPaths() {
+  return getDepartments().map((department) => ({
+    params: { department: department.code },
+    props: { department, cgps: getCgpsByDepartment(department.code) },
+  }));
+}
+
+interface Props {
+  department: { code: string; name: string };
+  cgps: Cgp[];
+}
+
+const { department, cgps } = Astro.props;
+---
+
+<Layout
+  title={`CGP indépendants dans le département ${department.name} (${department.code})`}
+  description={`Découvrez les conseillers en gestion de patrimoine indépendants dans le département ${department.name} (${department.code}).`}
+>
+  <Breadcrumb
+    items={[
+      { label: 'Accueil', href: '/' },
+      { label: 'Par département', href: '/cgp/par-departement/' },
+      { label: `${department.name} (${department.code})` },
+    ]}
+  />
+
+  <h1 class="text-3xl font-bold mb-6">
+    CGP indépendants dans le département {department.name} ({department.code})
+  </h1>
+
+  {cgps.length === 0 ? (
+    <EmptyState message={`Aucun CGP n'est référencé dans le département ${department.name} pour le moment.`} />
+  ) : (
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {cgps.map((cgp) => <CgpCard cgp={cgp} />)}
+    </div>
+  )}
+</Layout>

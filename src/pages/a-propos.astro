@@ -1,0 +1,34 @@
+---
+import Layout from '../components/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<Layout
+  title="À propos — CGP Indépendant"
+  description="Le but de CGP Indépendant : un annuaire simple et gratuit des conseillers en gestion de patrimoine indépendants en France."
+>
+  <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'À propos' }]} />
+
+  <div class="max-w-2xl">
+    <h1 class="text-3xl font-bold mb-6">À propos de CGP Indépendant</h1>
+
+    <p class="mb-4">
+      CGP Indépendant est un annuaire indépendant qui recense des conseillers en gestion de
+      patrimoine (CGP) exerçant en France. L'objectif est de permettre à toute personne
+      cherchant un accompagnement patrimonial de trouver facilement un professionnel proche
+      de chez elle.
+    </p>
+
+    <p class="mb-4">
+      Les informations affichées proviennent de sources publiques ou communiquées directement
+      par les professionnels référencés. Nous encourageons systématiquement les visiteurs à
+      vérifier les informations réglementaires, notamment le numéro d'immatriculation ORIAS,
+      directement sur le registre officiel avant tout contact.
+    </p>
+
+    <p>
+      Ce site ne constitue ni un conseil en investissement, ni une recommandation, ni une
+      certification des professionnels référencés.
+    </p>
+  </div>
+</Layout>

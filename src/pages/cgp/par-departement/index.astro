@@ -1,0 +1,31 @@
+---
+import Layout from '../../../components/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import EmptyState from '../../../components/EmptyState.astro';
+import { getDepartments } from '../../../lib/cgp';
+
+const departments = getDepartments();
+---
+
+<Layout
+  title="CGP indépendants par département — CGP Indépendant"
+  description="Retrouvez la liste des départements référencés dans l'annuaire des CGP indépendants."
+>
+  <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Par département' }]} />
+
+  <h1 class="text-3xl font-bold mb-6">CGP indépendants par département</h1>
+
+  {departments.length === 0 ? (
+    <EmptyState message="Aucun département n'est référencé pour le moment." />
+  ) : (
+    <ul class="grid grid-cols-1 md:grid-cols-3 gap-2">
+      {departments.map((department) => (
+        <li>
+          <a href={`/cgp/par-departement/${department.code}/`} class="link link-primary">
+            {department.name} ({department.code})
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</Layout>

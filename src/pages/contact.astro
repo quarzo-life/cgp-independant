@@ -1,0 +1,24 @@
+---
+import Layout from '../components/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<Layout
+  title="Contact — CGP Indépendant"
+  description="Contactez l'équipe de CGP Indépendant pour toute question, ajout ou modification de fiche."
+>
+  <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Contact' }]} />
+
+  <div class="max-w-2xl">
+    <h1 class="text-3xl font-bold mb-6">Contact</h1>
+
+    <p class="mb-4">
+      Pour toute question, demande d'ajout ou de modification de fiche, vous pouvez nous
+      écrire à l'adresse suivante :
+    </p>
+
+    <a href="mailto:contact@cgp-independant.fr" class="link link-primary text-lg">
+      contact@cgp-independant.fr
+    </a>
+  </div>
+</Layout>

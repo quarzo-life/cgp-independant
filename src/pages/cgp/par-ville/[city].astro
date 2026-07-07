@@ -1,0 +1,45 @@
+---
+import Layout from '../../../components/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import CgpCard from '../../../components/CgpCard.astro';
+import EmptyState from '../../../components/EmptyState.astro';
+import { getCities, getCgpsByCity, type Cgp } from '../../../lib/cgp';
+import { slugify } from '../../../lib/slugify';
+
+export async function getStaticPaths() {
+  return getCities().map((city) => ({
+    params: { city: slugify(city) },
+    props: { cityName: city, cgps: getCgpsByCity(city) },
+  }));
+}
+
+interface Props {
+  cityName: string;
+  cgps: Cgp[];
+}
+
+const { cityName, cgps } = Astro.props;
+---
+
+<Layout
+  title={`CGP indépendants à ${cityName}`}
+  description={`Découvrez les conseillers en gestion de patrimoine indépendants à ${cityName}.`}
+>
+  <Breadcrumb
+    items={[
+      { label: 'Accueil', href: '/' },
+      { label: 'Par ville', href: '/cgp/par-ville/' },
+      { label: cityName },
+    ]}
+  />
+
+  <h1 class="text-3xl font-bold mb-6">CGP indépendants à {cityName}</h1>
+
+  {cgps.length === 0 ? (
+    <EmptyState message={`Aucun CGP n'est référencé à ${cityName} pour le moment.`} />
+  ) : (
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {cgps.map((cgp) => <CgpCard cgp={cgp} />)}
+    </div>
+  )}
+</Layout>

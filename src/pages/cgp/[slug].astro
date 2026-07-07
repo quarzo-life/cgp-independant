@@ -1,0 +1,84 @@
+---
+import Layout from '../../components/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { getPublishedCgps, type Cgp } from '../../lib/cgp';
+
+export async function getStaticPaths() {
+  return getPublishedCgps().map((cgp) => ({
+    params: { slug: cgp.slug },
+    props: { cgp },
+  }));
+}
+
+interface Props {
+  cgp: Cgp;
+}
+
+const { cgp } = Astro.props;
+
+const title = `${cgp.displayName} - CGP indépendant à ${cgp.city}`;
+const description = `Fiche de ${cgp.displayName}${cgp.firmName ? ` (${cgp.firmName})` : ''}, conseiller en gestion de patrimoine indépendant à ${cgp.city}.`;
+---
+
+<Layout title={title} description={description}>
+  <Breadcrumb
+    items={[
+      { label: 'Accueil', href: '/' },
+      { label: 'Annuaire', href: '/cgp/' },
+      { label: cgp.displayName },
+    ]}
+  />
+
+  <article class="max-w-2xl">
+    <h1 class="text-3xl font-bold mb-2">{cgp.displayName}</h1>
+    {cgp.firmName && <p class="text-lg text-base-content/70 mb-6">{cgp.firmName}</p>}
+
+    <div class="card bg-base-100 border border-base-200 shadow-sm mb-6">
+      <div class="card-body gap-2">
+        <p><span class="font-semibold">Ville :</span> {cgp.city}</p>
+        <p><span class="font-semibold">Département :</span> {cgp.departmentName} ({cgp.departmentCode})</p>
+        <p><span class="font-semibold">Région :</span> {cgp.region}</p>
+        {cgp.website && (
+          <p>
+            <span class="font-semibold">Site web :</span>{' '}
+            <a href={cgp.website} class="link link-primary" rel="noopener noreferrer" target="_blank">{cgp.website}</a>
+          </p>
+        )}
+        {cgp.email && (
+          <p><span class="font-semibold">Email :</span> <a href={`mailto:${cgp.email}`} class="link link-primary">{cgp.email}</a></p>
+        )}
+        {cgp.phone && (
+          <p><span class="font-semibold">Téléphone :</span> {cgp.phone}</p>
+        )}
+      </div>
+    </div>
+
+    {cgp.oriasNumber && (
+      <div class="card bg-base-100 border border-base-200 shadow-sm mb-6">
+        <div class="card-body gap-2">
+          <h2 class="card-title">Informations ORIAS</h2>
+          <p><span class="font-semibold">Numéro ORIAS :</span> {cgp.oriasNumber}</p>
+          {cgp.oriasCategories.length > 0 && (
+            <p><span class="font-semibold">Catégories :</span> {cgp.oriasCategories.join(', ')}</p>
+          )}
+          {cgp.oriasLastCheckedAt && (
+            <p><span class="font-semibold">Dernière vérification :</span> {cgp.oriasLastCheckedAt}</p>
+          )}
+          <div class="alert alert-warning mt-2">
+            <span>Informations à vérifier sur le registre officiel ORIAS.</span>
+          </div>
+          <a
+            href="https://www.orias.fr/"
+            class="link link-primary"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Consulter le registre officiel ORIAS
+          </a>
+        </div>
+      </div>
+    )}
+
+    <a href="/cgp/" class="btn btn-outline">← Retour à l'annuaire</a>
+  </article>
+</Layout>

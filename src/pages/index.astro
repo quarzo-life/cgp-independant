@@ -1,0 +1,86 @@
+---
+import Layout from "../components/Layout.astro";
+---
+
+<Layout
+    title="CGP Indépendant — Annuaire des conseillers en gestion de patrimoine"
+    description="Trouvez un conseiller en gestion de patrimoine (CGP) indépendant près de chez vous. Annuaire par ville, département et région."
+>
+    <section class="text-center max-w-2xl mx-auto py-8">
+        <h1 class="text-4xl font-bold mb-4">
+            Trouvez un CGP indépendant près de chez vous
+        </h1>
+        <p class="text-base-content/70 mb-8">
+            Un annuaire simple et gratuit pour identifier les conseillers en
+            gestion de patrimoine indépendants en France, ville par ville et
+            département par département.
+        </p>
+
+        <label
+            class="input input-bordered flex items-center gap-2 mx-auto max-w-md"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                class="h-4 w-4 opacity-50"
+            >
+                <path
+                    fill="currentColor"
+                    d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42-1.39ZM11 18a7 7 0 1 1 7-7 7 7 0 0 1-7 7Z"
+                ></path>
+            </svg>
+            <input
+                type="text"
+                placeholder="Rechercher une ville ou un département..."
+                disabled
+            />
+        </label>
+        <p class="text-xs text-base-content/50 mt-2">
+            La recherche sera bientôt disponible.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-3 mt-10">
+            <a href="/cgp/" class="btn btn-primary">Voir l'annuaire</a>
+            <a href="/cgp/carte/" class="btn btn-outline">Voir la carte</a>
+            <a href="/cgp/par-ville/" class="btn btn-outline">Par ville</a>
+            <a href="/cgp/par-departement/" class="btn btn-outline"
+                >Par département</a
+            >
+        </div>
+    </section>
+
+    <section class="max-w-2xl mx-auto py-8">
+        <h2 class="text-2xl font-bold mb-4">
+            Qu'est-ce qu'un CGP indépendant ?
+        </h2>
+        <p class="mb-4">
+            Au sens de la directive européenne MIF 2, un conseiller en gestion
+            de patrimoine n'est considéré comme <strong>indépendant</strong> que s'il
+            est rémunéré exclusivement par ses clients, sous forme d'honoraires, et
+            non par des commissions ou rétrocessions versées par les fournisseurs
+            de produits financiers (assureurs, sociétés de gestion, banques...). Un
+            conseiller payé par les producteurs de produits qu'il recommande est un
+            vendeur, pas un conseiller indépendant.
+        </p>
+        <p class="mb-4">
+            Cette distinction est plus rare qu'on ne le pense : selon les
+            chiffres de l'AMF relayés fin 2021, seuls 6 % environ des
+            conseillers en investissements financiers (CIF) inscrits comme CGP
+            déclaraient fournir exclusivement du conseil indépendant au sens de
+            MIF 2 ; la grande majorité perçoit encore des rétrocessions des
+            fournisseurs de produits.
+        </p>
+        <p>
+            Philippe Maupas, sur son blog <a
+                href="https://alphabetablog.com/"
+                class="link link-primary"
+                rel="noopener noreferrer"
+                target="_blank">Alpha Beta Blog</a
+            >, revient régulièrement sur cette notion d'indépendance et sur les
+            conflits d'intérêts dans le conseil patrimonial. Ce site ne certifie
+            pas l'indépendance des professionnels référencés : il appartient à
+            chaque visiteur de vérifier le mode de rémunération et le statut
+            réglementaire (CIF, ORIAS...) d'un conseiller avant tout engagement.
+        </p>
+    </section>
+</Layout>
