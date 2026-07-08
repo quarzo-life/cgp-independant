@@ -1,0 +1,61 @@
+---
+interface Props {
+  departments: { code: string; name: string }[];
+  cities: string[];
+}
+
+const { departments, cities } = Astro.props;
+---
+
+<div class="card bg-base-100 border border-base-200 shadow-sm mb-6">
+  <div class="card-body gap-4">
+    <div>
+      <label for="cgp-search-input" class="label">
+        <span class="label-text">Rechercher</span>
+      </label>
+      <input
+        id="cgp-search-input"
+        type="search"
+        placeholder="Rechercher par nom, cabinet, ville, département ou ORIAS"
+        class="input input-bordered w-full"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-4">
+      <div class="flex-1">
+        <label for="cgp-department-select" class="label">
+          <span class="label-text">Département</span>
+        </label>
+        <select id="cgp-department-select" class="select select-bordered w-full">
+          <option value="">Tous les départements</option>
+          {departments.map((department) => (
+            <option value={department.code}>
+              {department.name} ({department.code})
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div class="flex-1">
+        <label for="cgp-city-select" class="label">
+          <span class="label-text">Ville</span>
+        </label>
+        <select id="cgp-city-select" class="select select-bordered w-full">
+          <option value="">Toutes les villes</option>
+          {cities.map((city) => (
+            <option value={city}>{city}</option>
+          ))}
+        </select>
+      </div>
+
+      <div class="flex items-end">
+        <button type="button" id="cgp-reset-button" class="btn btn-ghost">
+          Réinitialiser
+        </button>
+      </div>
+    </div>
+
+    <p id="cgp-results-count" class="text-sm text-base-content/70" aria-live="polite"></p>
+  </div>
+</div>

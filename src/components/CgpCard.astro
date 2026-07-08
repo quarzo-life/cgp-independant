@@ -6,9 +6,35 @@ interface Props {
 }
 
 const { cgp } = Astro.props;
+
+function normalizeForSearch(value: string): string {
+  return value
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase();
+}
+
+const searchHaystack = normalizeForSearch(
+  [
+    cgp.displayName,
+    cgp.firmName,
+    cgp.city,
+    cgp.postalCode,
+    cgp.departmentCode,
+    cgp.departmentName,
+    cgp.region,
+    cgp.oriasNumber ?? '',
+    cgp.oriasCategories.join(' '),
+  ].join(' '),
+);
 ---
 
-<article class="card bg-base-100 border border-base-200 shadow-sm hover:shadow-md transition-shadow">
+<article
+  class="card bg-base-100 border border-base-200 shadow-sm hover:shadow-md transition-shadow"
+  data-search={searchHaystack}
+  data-department={cgp.departmentCode}
+  data-city={cgp.city}
+>
   <div class="card-body">
     <h3 class="card-title">{cgp.displayName}</h3>
     {cgp.firmName && <p class="text-sm text-base-content/70">{cgp.firmName}</p>}
